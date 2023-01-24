@@ -56,11 +56,11 @@ newline \n|\x0A|\x0D\x0A
 \"([^"])*\" {strcpy(yylval.str,yytext); return T_string;}
 {newline}   {line++;}
 [ \t]       { /* nothing to be done when space or a tab is found!*/ }
-. {
-    /* A simple error message! */
-    printf("Lexical Analysis: Unexpected String! :: %s  in line %d. \n", yytext, line);
-    int c;
-    while((c = yylex()) != ',' && c != '}' && c != ']' && c != ')');
-    return c;
-}
+.           {
+                /* A simple error message! */
+                printf("Lexical Analysis: Unexpected String! :: %s  in line %d. \n", yytext, line);
+                int c;
+                while((c = yylex()) != ',' && c != '}' && c != ']' && c != ')');
+                return c;
+            }
 %%
