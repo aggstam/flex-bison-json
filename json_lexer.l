@@ -24,8 +24,8 @@
 #include <string.h>
 %}
 
-D [0-9]
-REAL {D}+\.{D}*
+D       [0-9]
+REAL    {D}+\.{D}*
 newline \n|\x0A|\x0D\x0A
 
 /* The lexer returns the ASCII code of the character found! */

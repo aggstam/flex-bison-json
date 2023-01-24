@@ -36,8 +36,8 @@ int line = 1;
     float numf;
     struct {
         jsonType type;
-        char name[250];
-        int len;
+        char     name[250];
+        int      len;
     } entity;
 }
 
@@ -46,7 +46,7 @@ int line = 1;
 
 /* Token declarations */
 %token <entity> T_type
-%token <str> T_string
+%token <str>    T_string
 %token <entity> T_number
 %token T_true
 %token T_false
@@ -75,14 +75,14 @@ json:
     ;
 
 pair_declarations:
-    |'(' T_string T_type ')' {
+    | '(' T_string T_type ')' {
         if (!addvar($2, $3.type, 1)) {
             printf("Entity:: %s on line %d. ", $2, line);
             yyerror("Entity already defined. Discarting.");
         }
     }
     pair_declarations
-    |'(' T_string T_type T_number ')' {
+    | '(' T_string T_type T_number ')' {
         $4.len = atoi($4.name);
         if(!addvar($2, $3.type, $4.len)) {
             printf("Entity:: %s on line %d. ",$2,line);
@@ -93,14 +93,14 @@ pair_declarations:
     ;
 
 object:
-    '{'/* empty */'}'
-    |'{'members'}'
+      '{'/* empty */'}'
+    | '{'  members  '}'
     ;
 
 members:
-    pair 
-    |pair ',' members
-    |error ',' members
+      pair
+    | pair  ',' members
+    | error ',' members
     ;
 
 pair:
@@ -125,24 +125,24 @@ pair:
     ;
 
 array:
-    '['/* empty */']' {$$.len = 0;}
-    |'['elements']' {$$.len = $2.len;}
+      '['/* empty */']' {$$.len = 0;}
+    | '[' elements  ']' {$$.len = $2.len;}
     ;
 
 elements:
-    value {$$.len = 1;}
-    |value ',' elements {$$.len = 1 + $3.len;}
-    |error ',' elements {$$.len = 1 + $3.len;}
+      value              {$$.len = 1;}
+    | value ',' elements {$$.len = 1 + $3.len;}
+    | error ',' elements {$$.len = 1 + $3.len;}
     ;
 
 value:
-    T_string {$$.type = type_string;strcpy($$.name,$1);;}
-    |T_number {$$.type = $1.type;strcpy($$.name,$1.name);}
-    |object {$$.type = type_object;strcpy($$.name,"object");}
-    |array {$$.type = type_array;strcpy($$.name,"array");$$.len = $1.len;}
-    |T_true {$$.type = type_constant;strcpy($$.name,"true");}
-    |T_false {$$.type = type_constant;strcpy($$.name,"false");}
-    |T_null {$$.type = type_constant;strcpy($$.name,"null");}
+      T_string {$$.type = type_string; strcpy($$.name, $1);}
+    | T_number {$$.type = $1.type; strcpy($$.name, $1.name);}
+    | object   {$$.type = type_object; strcpy($$.name, "object");}
+    | array    {$$.type = type_array; strcpy($$.name, "array"); $$.len = $1.len;}
+    | T_true   {$$.type = type_constant; strcpy($$.name, "true");}
+    | T_false  {$$.type = type_constant; strcpy($$.name, "false");}
+    | T_null   {$$.type = type_constant; strcpy($$.name, "null");}
     ;
 %%
 
@@ -156,8 +156,8 @@ int yyerror(const char* msg) {
 
 int main (int argc, char** argv) {
     ++argv, --argc; /* skip over program name */
-    if ( argc > 0 ) {
-        yyin = fopen( argv[0], "r" );
+    if (argc > 0) {
+        yyin = fopen(argv[0], "r" );
     } else {
         yyin = stdin;
     }
