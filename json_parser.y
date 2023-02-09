@@ -30,7 +30,7 @@ int yyerror(const char* msg);
 int line = 1;
 %}
 
-%union{
+%union {
     char  str[250];
     int   num;
     float numf;
@@ -150,12 +150,15 @@ value:
 #include "json_lexer.c"
 
 /* The usual yyerror, + line number indication. The variable line is defined in the lexical analyser.*/
-int yyerror(const char* msg) {
+int yyerror(const char *msg)
+{
    printf("ERROR in line %d: %s.\n", line, msg);
 }
 
-int main (int argc, char** argv) {
-    ++argv, --argc; /* skip over program name */
+int main (int argc, char **argv)
+{
+    /* skip over program name */
+    ++argv, --argc;
     if (argc > 0) {
         yyin = fopen(argv[0], "r" );
     } else {
