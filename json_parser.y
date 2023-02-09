@@ -26,7 +26,7 @@
 #include "jsonValidator.h"
 
 int yylex();
-int yyerror(const char* msg);
+int yyerror(const char *msg);
 int line = 1;
 %}
 
