@@ -25,3 +25,5 @@ test: compile
 
 clean:
 	rm -f $(FLEX_OUTPUT) $(BISON_OUTPUT) $(GCC_OUTPUT) $(PARSER_OUTPUT)
+
+.PHONY: all compile test clean
